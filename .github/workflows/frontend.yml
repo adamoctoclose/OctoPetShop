@@ -33,15 +33,11 @@ jobs:
       run: |
         dotnet pack ./OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Web.csproj --configuration Release --output "$GITHUB_WORKSPACE/artifacts" /p:PackageVersion=${{ env.PACKAGE_VERSION }}
 
-    - name: Install JFrog CLI
-      run: curl -fL https://getcli.jfrog.io | sh && chmod +x jfrog
-    
-    - name: Configure JFrog CLI
+    - name: Install NuGet CLI
       run: |
-          ./jfrog rt config --url=${{ secrets.ARTIFACTORY_URL }}
-                            --user=${{ secrets.ARTIFACTORY_USERNAME }}
-                            --password=${{ secrets.ARTIFACTORY_PASSWORD }}
-    
+          curl -sSL https://dist.nuget.org/win-x86-commandline/latest/nuget.exe -o nuget.exe
+      
     - name: Upload NuGet Package to Artifactory
-      run: ./jfrog rt u "$GITHUB_WORKSPACE/artifacts/*.nupkg" demo-adam-octopetshop
+      run: |
+          ./nuget.exe push "$GITHUB_WORKSPACE/artifacts/*.nupkg" -Source ${{ secrets.ARTIFACTORY_URL }} -ApiKey ${{ secrets.ARTIFACTORY_PASSWORD }}
           
