@@ -28,3 +28,21 @@ jobs:
 
     - name: Publish
       run: dotnet publish OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Web.csproj --configuration Release --no-restore --output "$GITHUB_WORKSPACE/artifacts/OctopusSamples.OctoPetShop.Web"
+
+    - name: Create NuGet Package
+      run: |
+        dotnet pack ./OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Web.csproj --configuration Release --output "$GITHUB_WORKSPACE/artifacts"
+
+    - name: Create NuGet Package for Octopus Deploy
+      uses: OctopusDeploy/create-nuget-package-action@v3
+      with:
+        package_id: OctoPetShop.Web
+        version: ${{ env.PACKAGE_VERSION }}
+        base_path: "$GITHUB_WORKSPACE/artifacts"
+        output_folder: "$GITHUB_WORKSPACE/artifacts"
+        nuspec_description: "Your description here"
+        nuspec_authors: "Your authors here"
+        files: |
+         **/*.*
+
+          
