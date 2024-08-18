@@ -54,7 +54,7 @@ jobs:
           **/*
 
     - name: Push package to Octopus Deploy
-      uses: OctopusDeploy/push-package-action@v1
+      uses: OctopusDeploy/push-package-action@v3
       with:
         space: 'MUFG'
         packages: '${{ github.workspace }}/artifacts/OctoPetShop.Web.${{ env.PACKAGE_VERSION }}.zip'
