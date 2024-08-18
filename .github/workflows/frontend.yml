@@ -2,7 +2,7 @@ name: Build and Deploy NuGet Package to Artifactory
 
 on:
     workflow_dispatch:
-        
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,13 +20,13 @@ jobs:
         dotnet-version: '5.0.x'
 
     - name: Restore dependencies
-      run: dotnet restore ./OctoPetShop.Web/OctoPetShop.Web.csproj
+      run: dotnet restore ./OctopusSamples.OctoPetShop.Web/OctoPetShop.Web.csproj
 
     - name: Build project
-      run: dotnet build --configuration Release ./OctoPetShop.Web/OctoPetShop.Web.csproj
+      run: dotnet build --configuration Release ./OctopusSamples.OctoPetShop.Web/OctoPetShop.Web.csproj
 
     - name: Pack NuGet package
-      run: dotnet pack --configuration Release --output ./nupkg ./OctoPetShop.Web/OctoPetShop.Web.csproj
+      run: dotnet pack --configuration Release --output ./nupkg ./OctopusSamples.OctoPetShop.Web/OctoPetShop.Web.csproj
 
     - name: Upload NuGet package to Artifactory
       env:
