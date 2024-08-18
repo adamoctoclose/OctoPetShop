@@ -29,17 +29,29 @@ jobs:
         dotnet-version: '6.0.x'
 
     - name: Install dependencies
-      run: dotnet restore ./OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Web.csproj
+      run: |
+       dotnet restore ./OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Web.csproj
+       dotnet restore ./OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.ProductService.csproj
+       dotnet restore ./OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Database.csproj
+       dotnet restore ./OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.ShoppingCartService.csproj
+  
 
     - name: Build
-      run: dotnet build ./OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Web.csproj --configuration Release --no-restore
+      run: | 
+        dotnet build ./OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Web.csproj --configuration Release --no-restore
+        dotnet build ./OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.ProductService.csproj --configuration Release --no-restore
+        dotnet build ./OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Database --configuration Release --no-restore
+        dotnet build ./OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.ShoppingCartService.csproj --configuration Release --no-restore
 
     - name: Publish
-      run: dotnet publish OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Web.csproj --configuration Release --no-restore --output ${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.Web
-      
+      run: | 
+        dotnet publish OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Web.csproj --configuration Release --no-restore --output ${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.Web
+        dotnet publish OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.ProductService.csproj --configuration Release --no-restore --output ${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.ProductService
+        dotnet publish OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Database.csproj --configuration Release --no-restore --output ${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.Database
+        dotnet publish OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.ShoppingCartService.csproj --configuration Release --no-restore --output ${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.ShoppingCartService
 
 
-    - name: Create Zip package 🐙
+    - name: Create Web Zip package 🐙
       uses: OctopusDeploy/create-zip-package-action@v3
       with:
         package_id: 'OctoPetShop.Web'
@@ -48,16 +60,52 @@ jobs:
         output_folder: '${{ github.workspace }}/artifacts'
         files: |
           **/*
+    - name: Create Database Zip package 🐙
+      uses: OctopusDeploy/create-zip-package-action@v3
+      with:
+        package_id: 'OctoPetShop.Database'
+        version: ${{ env.PACKAGE_VERSION }}
+        base_path: '${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.Database'
+        output_folder: '${{ github.workspace }}/artifacts'
+        files: |
+          **/*
+
+    - name: Create ShoppingCartService Zip package 🐙
+      uses: OctopusDeploy/create-zip-package-action@v3
+      with:
+        package_id: 'OctoPetShop.ShoppingCartService'
+        version: ${{ env.PACKAGE_VERSION }}
+        base_path: '${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.ShoppingCartService'
+        output_folder: '${{ github.workspace }}/artifacts'
+        files: |
+          **/*
+    - name: Create Product Service Zip package 🐙
+      uses: OctopusDeploy/create-zip-package-action@v3
+      with:
+        package_id: 'OctoPetShop.ProductService'
+        version: ${{ env.PACKAGE_VERSION }}
+        base_path: '${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.ProductService'
+        output_folder: '${{ github.workspace }}/artifacts'
+        files: |
+          **/*
 
     - name: Push package to Octopus Deploy
       uses: OctopusDeploy/push-package-action@v3
       with:
         space: 'MUFG'
-        packages: '${{ github.workspace }}/artifacts/OctoPetShop.Web.${{ env.PACKAGE_VERSION }}.zip'
+        packages: | 
+          '${{ github.workspace }}/artifacts/OctoPetShop.Web.${{ env.PACKAGE_VERSION }}.zip'
+          '${{ github.workspace }}/artifacts/OctoPetShop.Database.${{ env.PACKAGE_VERSION }}.zip'
+          '${{ github.workspace }}/artifacts/OctoPetShop.ProductService.${{ env.PACKAGE_VERSION }}.zip'
+          '${{ github.workspace }}/artifacts/OctoPetShop.ShoppingCartService.${{ env.PACKAGE_VERSION }}.zip'
 
     - name: Push Build Information to Octopus
       uses: OctopusDeploy/push-build-information-action@v3
       with:
           space: MUFG
-          packages: OctoPetShop.Web
+          packages: | 
+            OctoPetShop.Web
+            OctoPetShop.Database
+            OctoPetShop.ProductService
+            OctoPetShop.ShoppingCartService
           version: ${{ env.PACKAGE_VERSION }}
