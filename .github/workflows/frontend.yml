@@ -1,0 +1,38 @@
+name: Build and Deploy NuGet Package to Artifactory
+
+on:
+    workflow_dispatch:
+        
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set Version
+      run: echo "PACKAGE_VERSION=$(date +'%Y.%m.%d').$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '5.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore ./OctoPetShop.Web/OctoPetShop.Web.csproj
+
+    - name: Build project
+      run: dotnet build --configuration Release ./OctoPetShop.Web/OctoPetShop.Web.csproj
+
+    - name: Pack NuGet package
+      run: dotnet pack --configuration Release --output ./nupkg ./OctoPetShop.Web/OctoPetShop.Web.csproj
+
+    - name: Upload NuGet package to Artifactory
+      env:
+        ARTIFACTORY_URL: ${{ secrets.ARTIFACTORY_URL }}
+        ARTIFACTORY_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
+        ARTIFACTORY_PASSWORD: ${{ secrets.ARTIFACTORY_PASSWORD }}
+      run: |
+        PACKAGE_FILE=$(ls ./nupkg/*.nupkg)
+        curl -u $ARTIFACTORY_USERNAME:$ARTIFACTORY_PASSWORD -T $PACKAGE_FILE "$ARTIFACTORY_URL/$(basename $PACKAGE_FILE)"
