@@ -27,14 +27,15 @@ jobs:
       run: dotnet build ./OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Web.csproj --configuration Release --no-restore
 
     - name: Publish
-      run: dotnet publish OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Web.csproj --configuration Release --no-restore --output "$GITHUB_WORKSPACE/artifacts/OctopusSamples.OctoPetShop.Web"
+      run: dotnet publish OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Web.csproj --configuration Release --no-restore --output ${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.Web
+      
 
     - name: Create Zip package 🐙
       uses: OctopusDeploy/create-zip-package-action@v3
       with:
         package_id: 'OctoPetShop.Web'
         version: ${{ env.PACKAGE_VERSION }}
-        base_path: '$GITHUB_WORKSPACE/artifacts/OctopusSamples.OctoPetShop.Web/'
-        output_folder: '$GITHUB_WORKSPACE/artifacts'
+        base_path: '${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.Web'
+        output_folder: '${{ github.workspace }}/artifacts'
         files: |
           **/*
