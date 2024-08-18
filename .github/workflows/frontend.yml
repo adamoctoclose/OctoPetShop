@@ -39,5 +39,6 @@ jobs:
       
     - name: Upload NuGet Package to Artifactory
       run: |
-          ./nuget.exe push "$GITHUB_WORKSPACE/artifacts/*.nupkg" -Source ${{ secrets.ARTIFACTORY_URL }} -ApiKey ${{ secrets.ARTIFACTORY_PASSWORD }}
+          ./nuget.exe sources Add -Name Artifactory -Source https://artifactory.octopussamples.com/artifactory/api/nuget/demo-adam-octopetshop
+          ./nuget.exe setapikey ${{ secrets.ARTIFACTORY_PASSWORD }} -source Artifactory
           
