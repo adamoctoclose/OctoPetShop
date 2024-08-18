@@ -34,7 +34,7 @@ jobs:
       with:
         package_id: 'OctoPetShop.Web'
         version: ${{ env.PACKAGE_VERSION }}
-        base_path: '$GITHUB_WORKSPACE/artifacts/OctopusSamples.OctoPetShop.Web'
+        base_path: '$GITHUB_WORKSPACE/artifacts/OctopusSamples.OctoPetShop.Web/'
         output_folder: '$GITHUB_WORKSPACE/artifacts'
         files: |
           **/*
