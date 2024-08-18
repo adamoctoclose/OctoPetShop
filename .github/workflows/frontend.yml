@@ -31,18 +31,17 @@ jobs:
 
     - name: Create NuGet Package
       run: |
-        dotnet pack ./OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Web.csproj --configuration Release --output "$GITHUB_WORKSPACE/artifacts"
+        dotnet pack ./OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Web.csproj --configuration Release --output "$GITHUB_WORKSPACE/artifacts" /p:PackageVersion=${{ env.PACKAGE_VERSION }}
 
-    - name: Create NuGet Package for Octopus Deploy
-      uses: OctopusDeploy/create-nuget-package-action@v3
-      with:
-        package_id: OctoPetShop.Web
-        version: ${{ env.PACKAGE_VERSION }}
-        base_path: "$GITHUB_WORKSPACE/artifacts"
-        output_folder: "$GITHUB_WORKSPACE/artifacts"
-        nuspec_description: "Your description here"
-        nuspec_authors: "Your authors here"
-        files: |
-         **/*.*
-
+        - name: Install JFrog CLI
+        run: curl -fL https://getcli.jfrog.io | sh && chmod +x jfrog
+    
+    - name: Configure JFrog CLI
+      run: |
+          ./jfrog rt config --url=${{ secrets.ARTIFACTORY_URL }} \
+                            --user=${{ secrets.ARTIFACTORY_USERNAME }} \
+                            --password=${{ secrets.ARTIFACTORY_PASSWORD }}
+    
+    - name: Upload NuGet Package to Artifactory
+      run: ./jfrog rt u "$GITHUB_WORKSPACE/artifacts/*.nupkg" demo-adam-octopetshop
           
