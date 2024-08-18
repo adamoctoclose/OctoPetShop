@@ -29,8 +29,12 @@ jobs:
     - name: Publish
       run: dotnet publish OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Web.csproj --configuration Release --no-restore --output "$GITHUB_WORKSPACE/artifacts/OctopusSamples.OctoPetShop.Web"
 
-    - name: Create NuGet Package
-      run: |
-        dotnet pack ./OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Web.csproj --configuration Release --output "$GITHUB_WORKSPACE/artifacts" /p:PackageVersion=${{ env.PACKAGE_VERSION }}
-        dotnet nuget push "$GITHUB_WORKSPACE/artifacts/OctopusSamples.OctoPetShop.Web.${{ env.PACKAGE_VERSION }}.nupkg" --source "https://artifactory.octopussamples.com:443/artifactory/demo-adam-octopetshop" --api-key ${{ secrets.ARTIFACTORY_PASSWORD }}
-  
+    - name: Create Zip package 🐙
+      uses: OctopusDeploy/create-zip-package-action@v3
+      with:
+        package_id: 'OctoPetShop.Web'
+        version: ${{ env.PACKAGE_VERSION }}
+        base_path: '$GITHUB_WORKSPACE/artifacts/OctopusSamples.OctoPetShop.Web'
+        output_folder: '$GITHUB_WORKSPACE/artifacts'
+        files: |
+          **/*
