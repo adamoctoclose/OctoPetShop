@@ -33,12 +33,7 @@ jobs:
       run: |
         dotnet pack ./OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Web.csproj --configuration Release --output "$GITHUB_WORKSPACE/artifacts" /p:PackageVersion=${{ env.PACKAGE_VERSION }}
 
-    - name: Install NuGet CLI
+    - name: Push NuGet Package
       run: |
-          curl -sSL https://dist.nuget.org/win-x86-commandline/latest/nuget.exe -o nuget.exe
-      
-    - name: Upload NuGet Package to Artifactory
-      run: |
-          ./nuget.exe sources Add -Name Artifactory -Source https://artifactory.octopussamples.com/artifactory/api/nuget/demo-adam-octopetshop --username ${{ secrets.ARTIFACTORY_USERNAME }} --password ${{ secrets.ARTIFACTORY_PASSWORD }}
-          ./nuget.exe setapikey ${{secrets.ARTIFACTORY_USERNAME}}:${{ secrets.ARTIFACTORY_PASSWORD }} -source Artifactory
-          
+        dotnet nuget push "$GITHUB_WORKSPACE/artifacts/OctopusSamples.OctoPetShop.Web.${{ env.PACKAGE_VERSION }}.nupkg" --source "https://artifactory.octopussamples.com:443/artifactory/demo-adam-octopetshop" --api-key ${{ secrets.ARTIFACTORY_PASSWORD }}
+  
