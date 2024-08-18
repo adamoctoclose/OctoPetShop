@@ -40,7 +40,6 @@ jobs:
       run: | 
         dotnet build ./OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Web.csproj --configuration Release --no-restore
         dotnet build ./OctopusSamples.OctoPetShop.ProductService/OctopusSamples.OctoPetShop.ProductService.csproj --configuration Release --no-restore
-        dotnet build ./OctopusSamples.OctoPetShop.Database/OctopusSamples.OctoPetShop.Database --configuration Release --no-restore
         dotnet build ./OctopusSamples.OctoPetShop.ShoppingCartService/OctopusSamples.OctoPetShop.ShoppingCartService.csproj --configuration Release --no-restore
 
     - name: Publish
