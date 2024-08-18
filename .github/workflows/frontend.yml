@@ -93,10 +93,10 @@ jobs:
       with:
         space: 'MUFG'
         packages: | 
-          '${{ github.workspace }}/artifacts/OctoPetShop.Web.${{ env.PACKAGE_VERSION }}.zip'
-          '${{ github.workspace }}/artifacts/OctoPetShop.Database.${{ env.PACKAGE_VERSION }}.zip'
-          '${{ github.workspace }}/artifacts/OctoPetShop.ProductService.${{ env.PACKAGE_VERSION }}.zip'
-          '${{ github.workspace }}/artifacts/OctoPetShop.ShoppingCartService.${{ env.PACKAGE_VERSION }}.zip'
+          ${{ github.workspace }}/artifacts/OctoPetShop.Web.${{ env.PACKAGE_VERSION }}.zip
+          ${{ github.workspace }}/artifacts/OctoPetShop.Database.${{ env.PACKAGE_VERSION }}.zip
+          ${{ github.workspace }}/artifacts/OctoPetShop.ProductService.${{ env.PACKAGE_VERSION }}.zip
+          ${{ github.workspace }}/artifacts/OctoPetShop.ShoppingCartService.${{ env.PACKAGE_VERSION }}.zip
 
     - name: Push Build Information to Octopus
       uses: OctopusDeploy/push-build-information-action@v3
