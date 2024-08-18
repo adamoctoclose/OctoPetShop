@@ -59,5 +59,5 @@ jobs:
       uses: OctopusDeploy/push-build-information-action@v3
       with:
           space: MUFG
-          packages: OctoPetShop.Web'
+          packages: OctoPetShop.Web
           version: ${{ env.PACKAGE_VERSION }}.
