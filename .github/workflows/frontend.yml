@@ -54,3 +54,10 @@ jobs:
       with:
         space: 'MUFG'
         packages: '${{ github.workspace }}/artifacts/OctoPetShop.Web.${{ env.PACKAGE_VERSION }}.zip'
+
+    - name: Push Build Information to Octopus
+      uses: OctopusDeploy/push-build-information-action@v3
+      with:
+          space: MUFG
+          packages: OctoPetShop.Web'
+          version: ${{ env.PACKAGE_VERSION }}.
