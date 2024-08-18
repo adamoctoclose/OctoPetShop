@@ -11,8 +11,18 @@ jobs:
     permissions:
       id-token: write
 
+
+
+
     steps:
-    - uses: actions/checkout@v2
+
+    - name: Login to Octopus Deploy
+      uses: OctopusDeploy/login@v1.0.1
+      with:
+         server: "https://adamclose.octopus.app/"
+         service_account_id: "7bca9f0c-70a6-4e95-a9ff-6aae2d170d43"
+
+    - uses: actions/checkout@v3
 
     - name: Set Version
       run: echo "PACKAGE_VERSION=$(date +'%Y.%m.%d').$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
@@ -31,11 +41,7 @@ jobs:
     - name: Publish
       run: dotnet publish OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Web.csproj --configuration Release --no-restore --output ${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.Web
       
-    - name: Login to Octopus Deploy
-      uses: OctopusDeploy/login@v1.0.1
-      with:
-       server: "https://adamclose.octopus.app/"
-       service_account_id: "7bca9f0c-70a6-4e95-a9ff-6aae2d170d43"
+
 
     - name: Create Zip package 🐙
       uses: OctopusDeploy/create-zip-package-action@v3
