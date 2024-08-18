@@ -60,4 +60,4 @@ jobs:
       with:
           space: MUFG
           packages: OctoPetShop.Web
-          version: ${{ env.PACKAGE_VERSION }}.
+          version: ${{ env.PACKAGE_VERSION }}
