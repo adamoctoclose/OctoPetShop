@@ -31,24 +31,24 @@ jobs:
     - name: Install dependencies
       run: |
        dotnet restore ./OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Web.csproj
-       dotnet restore ./OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.ProductService.csproj
-       dotnet restore ./OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Database.csproj
-       dotnet restore ./OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.ShoppingCartService.csproj
+       dotnet restore ./OctopusSamples.OctoPetShop.ProductService/OctopusSamples.OctoPetShop.ProductService.csproj
+       dotnet restore ./OctopusSamples.OctoPetShop.Database/OctopusSamples.OctoPetShop.Database.csproj
+       dotnet restore ./OctopusSamples.OctoPetShop.ShoppingCartService/OctopusSamples.OctoPetShop.ShoppingCartService.csproj
   
 
     - name: Build
       run: | 
         dotnet build ./OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Web.csproj --configuration Release --no-restore
-        dotnet build ./OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.ProductService.csproj --configuration Release --no-restore
-        dotnet build ./OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Database --configuration Release --no-restore
-        dotnet build ./OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.ShoppingCartService.csproj --configuration Release --no-restore
+        dotnet build ./OctopusSamples.OctoPetShop.ProductService/OctopusSamples.OctoPetShop.ProductService.csproj --configuration Release --no-restore
+        dotnet build ./OctopusSamples.OctoPetShop.Database/OctopusSamples.OctoPetShop.Database --configuration Release --no-restore
+        dotnet build ./OctopusSamples.OctoPetShop.ShoppingCartService/OctopusSamples.OctoPetShop.ShoppingCartService.csproj --configuration Release --no-restore
 
     - name: Publish
       run: | 
         dotnet publish OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Web.csproj --configuration Release --no-restore --output ${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.Web
-        dotnet publish OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.ProductService.csproj --configuration Release --no-restore --output ${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.ProductService
-        dotnet publish OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Database.csproj --configuration Release --no-restore --output ${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.Database
-        dotnet publish OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.ShoppingCartService.csproj --configuration Release --no-restore --output ${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.ShoppingCartService
+        dotnet publish OctopusSamples.OctoPetShop.ProductService/OctopusSamples.OctoPetShop.ProductService.csproj --configuration Release --no-restore --output ${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.ProductService
+        dotnet publish OctopusSamples.OctoPetShop.Database/OctopusSamples.OctoPetShop.Database.csproj --configuration Release --no-restore --output ${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.Database
+        dotnet publish OctopusSamples.OctoPetShop.ShoppingCartService/OctopusSamples.OctoPetShop.ShoppingCartService.csproj --configuration Release --no-restore --output ${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.ShoppingCartService
 
 
     - name: Create Web Zip package 🐙
