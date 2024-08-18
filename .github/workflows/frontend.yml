@@ -32,8 +32,5 @@ jobs:
     - name: Create NuGet Package
       run: |
         dotnet pack ./OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Web.csproj --configuration Release --output "$GITHUB_WORKSPACE/artifacts" /p:PackageVersion=${{ env.PACKAGE_VERSION }}
-
-    - name: Push NuGet Package
-      run: |
         dotnet nuget push "$GITHUB_WORKSPACE/artifacts/OctopusSamples.OctoPetShop.Web.${{ env.PACKAGE_VERSION }}.nupkg" --source "https://artifactory.octopussamples.com:443/artifactory/demo-adam-octopetshop" --api-key ${{ secrets.ARTIFACTORY_PASSWORD }}
   
