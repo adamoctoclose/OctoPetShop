@@ -3,24 +3,23 @@ name: .NET Core
 on:
   workflow_dispatch:
 
-
 jobs:
   build:
 
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       id-token: write
 
     steps:
-
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
 
     - name: Login to Octopus Deploy
       uses: OctopusDeploy/login@v1.0.1
       with:
          server: "https://adamclose.octopus.app/"
          service_account_id: "7bca9f0c-70a6-4e95-a9ff-6aae2d170d43"
-         
+
     - name: Set Version
       run: echo "PACKAGE_VERSION=$(date +'%Y.%m.%d').$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
 
