@@ -1,0 +1,35 @@
+variable "AppSettings:AppVersion" {
+    value "#{Octopus.Release.Number}" {}
+}
+
+variable "AppSettings:EnvironmentName" {
+    value "#{Octopus.Environment.Name}" {}
+}
+
+variable "Azure.Account" {
+    type = "AzureAccount"
+
+    value "visual-studio-professional" {}
+}
+
+variable "ConnectionStrings:OPSConnectionString" {
+    value "server=(local)\\\\SqlExpress; Database=ops; Trusted_connection=true" {
+        environment = ["development"]
+    }
+
+    value "server=(local)\\\\SqlExpress; Database=ops; Trusted_connection=true" {
+        environment = ["staging"]
+    }
+
+    value "server=(local)\\\\SqlExpress; Database=ops; Trusted_connection=true" {
+        environment = ["production"]
+    }
+}
+
+variable "project.azure.vm.size" {
+    value "Standard_B2s" {}
+}
+
+variable "project.azure.vm.username" {
+    value "octoadmin" {}
+}
