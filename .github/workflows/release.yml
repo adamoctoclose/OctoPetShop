@@ -115,4 +115,5 @@ jobs:
       with:
         space: 'MUFG'
         project: 'OctoPetShop'
+        git_ref: 'main'
 
