@@ -111,7 +111,7 @@ jobs:
           version: ${{ env.PACKAGE_VERSION }}
 
     - name: Create Release in Octopus Deploy
-      uses: OctopusDeploy/create-release-action@v1
+      uses: OctopusDeploy/create-release-action@v3
       with:
         space: 'MUFG'
         project: 'OctoPetShop'
