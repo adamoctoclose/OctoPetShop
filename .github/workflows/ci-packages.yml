@@ -1,5 +1,4 @@
-name: CI Feature Branch
-
+name: CI Packages
 on:
   workflow_dispatch:
 
@@ -54,6 +53,7 @@ jobs:
         version: ${{ env.PACKAGE_VERSION }}
         base_path: '${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.Web'
         output_folder: '${{ github.workspace }}/artifacts'
+        nuspec_description: 'OctoPetShop.Web package'
         files: |
           **/*
 
