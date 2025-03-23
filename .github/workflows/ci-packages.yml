@@ -97,7 +97,7 @@ jobs:
     - name: Push Build Information to Octopus
       uses: OctopusDeploy/push-build-information-action@v3
       with:
-          space: MUFG
+          space: Platform
           packages: | 
             OctoPetShop.Web
             OctoPetShop.Database
