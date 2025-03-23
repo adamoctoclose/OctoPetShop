@@ -112,7 +112,7 @@ jobs:
 
     - name: Configure JFrog CLI
       run: |
-        jf config add demo --url="${{ secrets.ARTIFACTORY_URL }}" --user="${{ secrets.ARTIFACTORY_USERNAME }}" --apikey="${{ secrets.ARTIFACTORY_PASSWORD }}" --interactive=false
+        jf config add --url="${{ secrets.ARTIFACTORY_URL }}" --user="${{ secrets.ARTIFACTORY_USERNAME }}" --password="${{ secrets.ARTIFACTORY_PASSWORD }}" --interactive=false
 
     - name: Upload packages to Artifactory
       run: |
