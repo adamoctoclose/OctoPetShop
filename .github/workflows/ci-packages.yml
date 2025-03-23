@@ -65,6 +65,8 @@ jobs:
         version: ${{ env.PACKAGE_VERSION }}
         base_path: '${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.Database'
         output_folder: '${{ github.workspace }}/artifacts'
+        nuspec_description: 'OctoPetShop.Database package'
+        nuspec_authors: 'OctoPetShop Team'
         files: |
           **/*
 
@@ -73,8 +75,10 @@ jobs:
       with:
         package_id: 'OctoPetShop.ShoppingCartService'
         version: ${{ env.PACKAGE_VERSION }}
-        base_path: '${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.ShoppingCartService'
+        base_path: '${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.ShoppingCartService package'
         output_folder: '${{ github.workspace }}/artifacts'
+        nuspec_description: 'OctoPetShop.ShoppingCartService package'
+        nuspec_authors: 'OctoPetShop Team'
         files: |
           **/*
 
@@ -85,6 +89,8 @@ jobs:
         version: ${{ env.PACKAGE_VERSION }}
         base_path: '${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.ProductService'
         output_folder: '${{ github.workspace }}/artifacts'
+        nuspec_description: 'OctoPetShop.ProductService package'
+        nuspec_authors: 'OctoPetShop Team'
         files: |
           **/*
 
