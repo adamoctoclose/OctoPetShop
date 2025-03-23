@@ -75,7 +75,7 @@ jobs:
       with:
         package_id: 'OctoPetShop.ShoppingCartService'
         version: ${{ env.PACKAGE_VERSION }}
-        base_path: '${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.ShoppingCartService package'
+        base_path: '${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.ShoppingCartService'
         output_folder: '${{ github.workspace }}/artifacts'
         nuspec_description: 'OctoPetShop.ShoppingCartService package'
         nuspec_authors: 'OctoPetShop Team'
