@@ -54,6 +54,7 @@ jobs:
         base_path: '${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.Web'
         output_folder: '${{ github.workspace }}/artifacts'
         nuspec_description: 'OctoPetShop.Web package'
+        nuspec_authors: 'OctoPetShop Team'
         files: |
           **/*
 
