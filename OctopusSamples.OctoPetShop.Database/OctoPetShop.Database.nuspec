@@ -12,6 +12,7 @@
     <tags>database octopetshop</tags>
   </metadata>
   <files>
+    <file src="bin\Release\net6.0\publish\flyway\**\*.*" target="content\flyway" />
     <file src="bin\Release\net6.0\publish\**" target="lib\net6.0" />
   </files>
 </package>
