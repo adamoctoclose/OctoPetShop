@@ -63,7 +63,7 @@ jobs:
       with:
         package_id: 'OctoPetShop.Database'
         version: ${{ env.PACKAGE_VERSION }}
-        base_path: '${{ github.workspace }}/OctopusSamples.OctoPetShop.Database'
+        base_path: '${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.Database'
         output_folder: '${{ github.workspace }}/artifacts'
         nuspec_description: 'OctoPetShop.Database package'
         nuspec_authors: 'OctoPetShop Team'
