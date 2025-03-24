@@ -61,11 +61,11 @@ jobs:
     - name: Create Database NuGet package 🐙
       uses: OctopusDeploy/create-nuget-package-action@v3
       with:
-        package_id: 'OctoPetShop.Database'
+        package_id: 'OctoPetShop.Database.flyway'
         version: ${{ env.PACKAGE_VERSION }}
-        base_path: '${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.Database'
+        base_path: '${{ github.workspace }}/artifacts/OctopusSamples.OctoPetShop.Database.flyway'
         output_folder: '${{ github.workspace }}/artifacts'
-        nuspec_description: 'OctoPetShop.Database package'
+        nuspec_description: 'OctoPetShop.Database.flyway package'
         nuspec_authors: 'OctoPetShop Team'
         files: |
           **/*
@@ -100,7 +100,7 @@ jobs:
           space: Platform
           packages: | 
             OctoPetShop.Web
-            OctoPetShop.Database
+            OctoPetShop.Database.flyway
             OctoPetShop.ProductService
             OctoPetShop.ShoppingCartService
           version: ${{ env.PACKAGE_VERSION }}
