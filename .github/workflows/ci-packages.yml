@@ -63,7 +63,7 @@ jobs:
       with:
         package_id: 'OctoPetShop.Database.flyway'
         version: ${{ env.PACKAGE_VERSION }}
-        base_path: '${{ github.workspace }}/OctopusSamples.OctoPetShop.Database.flyway'
+        base_path: '${{ github.workspace }}/OctopusSamples.OctoPetShop.Database.Flyway'
         output_folder: '${{ github.workspace }}/artifacts'
         nuspec_description: 'OctoPetShop.Database.flyway package'
         nuspec_authors: 'OctoPetShop Team'
