@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <metadata>
-    <id>OctoPetShop.Database.Flyway</id>
+    <id>OctoPetShop.Database</id>
     <version>1.0.0</version>
     <authors>Your authors here</authors>
     <owners>Your owners here</owners>
@@ -9,7 +9,7 @@
     <description>Your description here</description>
     <releaseNotes>Initial release</releaseNotes>
     <copyright>Copyright © Your Company 2023</copyright>
-    <tags>web octopetshop</tags>
+    <tags>database octopetshop</tags>
   </metadata>
   <files>
     <file src="bin\Release\net6.0\publish\**" target="lib\net6.0" />
