@@ -19,7 +19,7 @@
 
   <!-- Keep the embedded scripts if you still need them inside your assembly -->
   <ItemGroup>
-    <EmbeddedResource Include="scripts\*.sql" />
+    <EmbeddedResource Include="flyway\*.sql" />
   </ItemGroup>
 
   <ItemGroup>
