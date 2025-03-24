@@ -22,13 +22,6 @@
     <EmbeddedResource Include="scripts\*.sql" />
   </ItemGroup>
 
-  <!-- Copy the entire flyway folder to the publish output -->
-  <ItemGroup>
-    <Content Include="flyway\**\*.*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
   <ItemGroup>
     <None Update="deploy.sh" CopyToOutputDirectory="PreserveNewest" />
     <None Update="deploy.ps1" CopyToOutputDirectory="PreserveNewest" />
