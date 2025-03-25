@@ -1,0 +1,27 @@
+variable "Project.Database.ConnectionString" {
+    value "jdbc:sqlserver://#{Project.Database.Server.Name}:1433;databaseName=#{Project.Database.Name};encrypt=true;trustServerCertificate=true" {}
+}
+
+variable "Project.Database.User" {
+    value "octopus" {}
+}
+
+variable "Project.Database.Server.Name" {
+    value "octopus-workshop.ce8nepijogpn.eu-west-2.rds.amazonaws.com" {}
+}
+
+variable "Project.Database.Name" {
+    value "#{Octopus.Space.Name | Replace \" \"}-#{Octopus.Project.Name | Replace \" \"}-#{Octopus.Environment.Name}" {}
+}
+
+variable "AppSettings:ProductServiceBaseUrl" {
+    value "http://localhost:#{Project.IIS.PortNumber}/ProductService" {}
+}
+
+variable "AppSettings:EnvironmentName" {
+    value "#{Octopus.Environment.Name}" {}
+}
+
+variable "Project.IIS.PortNumber" {
+    value "#{Octopus.Space.Name}" {}
+}
