@@ -14,10 +14,6 @@ variable "Project.Database.Server.Name" {
     value "octopus-workshop.ce8nepijogpn.eu-west-2.rds.amazonaws.com" {}
 }
 
-variable "Project.Database.Password" {
-    value "RS,s(ll8)y:)" {}
-}
-
 variable "Project.Database.Name" {
     value "#{Octopus.Space.Name | Replace \" \"}-#{Octopus.Project.Name | Replace \" \"}-#{Octopus.Environment.Name}" {}
 }
