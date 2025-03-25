@@ -31,6 +31,7 @@ step "flyway-database-migrations" {
             Flyway.Authentication.Method = "usernamepassword"
             Flyway.Command.BaseLineOnMigrate = "false"
             Flyway.Command.FailOnDrift = "true"
+            Flyway.Command.Locations = "filesystem:C:\\OctopetShop.Database.2025.03.25.47\\flyway\\sql"
             Flyway.Command.OutOfOrder = "false"
             Flyway.Command.SkipExecutingMigrations = "false"
             Flyway.Command.Target = "latest"
@@ -74,7 +75,7 @@ step "deploy-to-iis" {
             Octopus.Action.IISWebSite.Bindings = "[{\"protocol\":\"http\",\"port\":\"#{Project.IIS.PortNumber}\",\"host\":\"\",\"thumbprint\":null,\"certificateVariable\":null,\"requireSni\":\"False\",\"enabled\":\"True\"}]"
             Octopus.Action.IISWebSite.CreateOrUpdateWebSite = "True"
             Octopus.Action.IISWebSite.DeploymentType = "webSite"
-            Octopus.Action.IISWebSite.EnableAnonymousAuthentication = "False"
+            Octopus.Action.IISWebSite.EnableAnonymousAuthentication = "True"
             Octopus.Action.IISWebSite.EnableBasicAuthentication = "False"
             Octopus.Action.IISWebSite.EnableWindowsAuthentication = "True"
             Octopus.Action.IISWebSite.StartApplicationPool = "True"
@@ -89,6 +90,7 @@ step "deploy-to-iis" {
             Octopus.Action.Package.FeedId = "artifactory"
             Octopus.Action.Package.JsonConfigurationVariablesTargets = "appsettings.json"
             Octopus.Action.Package.PackageId = "OctoPetShop.Web"
+            Octopus.Action.RunOnServer = "false"
         }
         worker_pool_variable = ""
 
@@ -136,6 +138,7 @@ step "deploy-to-api-iis" {
             Octopus.Action.Package.FeedId = "artifactory"
             Octopus.Action.Package.JsonConfigurationVariablesTargets = "appsettings.json"
             Octopus.Action.Package.PackageId = "OctoPetShop.ProductService"
+            Octopus.Action.RunOnServer = "false"
         }
         worker_pool_variable = ""
 
