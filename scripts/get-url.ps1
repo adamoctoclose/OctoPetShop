@@ -5,7 +5,7 @@ $publicIp = Invoke-RestMethod -Uri http://169.254.169.254/latest/meta-data/publi
 $portNumber = '#{Project.IIS.PortNumber}'
 
 # Combine parts into a single string
-$output = "publicip:${publicIp}:${portNumber}"
+$output = "http//:${publicIp}:${portNumber}"
 
 # Output the result
 Write-Highlight $output
