@@ -22,10 +22,12 @@ variable "AppSettings:ProductServiceBaseUrl" {
     value "http://localhost:#{Project.IIS.PortNumber}/ProductService" {}
 }
 
-variable "AppSettings:EnvironmentName" {
-    value "#{Octopus.Environment.Name}" {}
-}
-
 variable "Project.IIS.PortNumber" {
     value "#{Octopus.Space.Name}" {}
+}
+
+variable "AppSettings:EnvironmentName" {
+    value "#{Octopus.Environment.Name}" {
+        environment = ["development"]
+    }
 }
