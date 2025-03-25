@@ -6,6 +6,24 @@ step "production-approval" {
         properties = {
             Octopus.Action.Manual.BlockConcurrentDeployments = "False"
             Octopus.Action.Manual.Instructions = "Approval for Production"
+            Octopus.Action.RunOnServer = "false"
         }
+    }
+}
+
+step "sql-create-database-if-not-exists" {
+    name = "SQL - Create Database If Not Exists"
+
+    action {
+        properties = {
+            createCommandTimeout = "30"
+            createSqlDatabaseRetryAttempts = "0"
+            createSqlLoginPasswordWhoHasRights = "#{Project.Database.Password}"
+            createSqlLoginUserWhoHasCreateUserRights = "#{Project.Database.User}"
+            createSqlServer = "#{Project.Database.Server.Name}"
+            Octopus.Action.Template.Id = "ActionTemplates-51"
+            Octopus.Action.Template.Version = "5"
+        }
+        worker_pool = "hosted-windows"
     }
 }
