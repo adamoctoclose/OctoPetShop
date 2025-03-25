@@ -7,6 +7,7 @@ step "production-approval" {
         properties = {
             Octopus.Action.Manual.BlockConcurrentDeployments = "False"
             Octopus.Action.Manual.Instructions = "Please approval before deploying to Production"
+            Octopus.Action.RunOnServer = "false"
         }
     }
 }
@@ -102,6 +103,7 @@ step "deploy-octopetshop-frontend" {
             Octopus.Action.Package.FeedId = "artifactory"
             Octopus.Action.Package.JsonConfigurationVariablesTargets = "appsettings.json"
             Octopus.Action.Package.PackageId = "OctoPetShop.Web"
+            Octopus.Action.RunOnServer = "false"
         }
         worker_pool_variable = ""
 
@@ -109,6 +111,51 @@ step "deploy-octopetshop-frontend" {
             acquisition_location = "Server"
             feed = "artifactory"
             package_id = "OctoPetShop.Web"
+            properties = {
+                SelectionMode = "immediate"
+            }
+        }
+    }
+}
+
+step "deploy-octopetshop-api" {
+    name = "Deploy OctoPetShop API"
+    properties = {
+        Octopus.Action.TargetRoles = "octopetshop-web"
+    }
+
+    action {
+        action_type = "Octopus.IIS"
+        properties = {
+            Octopus.Action.EnabledFeatures = "Octopus.Features.IISWebSite,Octopus.Features.JsonConfigurationVariables,Octopus.Features.ConfigurationVariables,Octopus.Features.ConfigurationTransforms"
+            Octopus.Action.IISWebSite.ApplicationPoolFrameworkVersion = "v4.0"
+            Octopus.Action.IISWebSite.ApplicationPoolIdentityType = "ApplicationPoolIdentity"
+            Octopus.Action.IISWebSite.ApplicationPoolName = "OcoPetsHOP-api"
+            Octopus.Action.IISWebSite.Bindings = "[{\"protocol\":\"http\",\"ipAddress\":\"*\",\"port\":\"#{Project.IIS.PortNumber}\",\"host\":\"\",\"thumbprint\":null,\"certificateVariable\":null,\"requireSni\":\"False\",\"enabled\":\"True\"}]"
+            Octopus.Action.IISWebSite.CreateOrUpdateWebSite = "True"
+            Octopus.Action.IISWebSite.DeploymentType = "webSite"
+            Octopus.Action.IISWebSite.EnableAnonymousAuthentication = "True"
+            Octopus.Action.IISWebSite.EnableBasicAuthentication = "False"
+            Octopus.Action.IISWebSite.EnableWindowsAuthentication = "True"
+            Octopus.Action.IISWebSite.StartApplicationPool = "True"
+            Octopus.Action.IISWebSite.StartWebSite = "True"
+            Octopus.Action.IISWebSite.WebApplication.ApplicationPoolFrameworkVersion = "v4.0"
+            Octopus.Action.IISWebSite.WebApplication.ApplicationPoolIdentityType = "ApplicationPoolIdentity"
+            Octopus.Action.IISWebSite.WebRootType = "packageRoot"
+            Octopus.Action.IISWebSite.WebSiteName = "OcoPetsHOP-api"
+            Octopus.Action.Package.AutomaticallyRunConfigurationTransformationFiles = "True"
+            Octopus.Action.Package.AutomaticallyUpdateAppSettingsAndConnectionStrings = "True"
+            Octopus.Action.Package.DownloadOnTentacle = "False"
+            Octopus.Action.Package.FeedId = "artifactory"
+            Octopus.Action.Package.JsonConfigurationVariablesTargets = "appsettings.json"
+            Octopus.Action.Package.PackageId = "OctoPetShop.ProductService"
+        }
+        worker_pool_variable = ""
+
+        packages {
+            acquisition_location = "Server"
+            feed = "artifactory"
+            package_id = "OctoPetShop.ProductService"
             properties = {
                 SelectionMode = "immediate"
             }
