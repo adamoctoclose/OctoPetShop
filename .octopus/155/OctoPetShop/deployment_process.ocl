@@ -8,6 +8,7 @@ step "production-approval" {
             Octopus.Action.Manual.BlockConcurrentDeployments = "False"
             Octopus.Action.Manual.Instructions = "Please approve deployment"
             Octopus.Action.Manual.ResponsibleTeamIds = "global/everyone"
+            Octopus.Action.RunOnServer = "false"
         }
     }
 }
@@ -104,6 +105,7 @@ step "deploy-octopetshop-frontend" {
             Octopus.Action.Package.FeedId = "artifactory"
             Octopus.Action.Package.JsonConfigurationVariablesTargets = "appsettings.json"
             Octopus.Action.Package.PackageId = "OctoPetShop.Web"
+            Octopus.Action.RunOnServer = "false"
         }
         worker_pool_variable = ""
 
@@ -151,6 +153,7 @@ step "deploy-octopetshop-api" {
             Octopus.Action.Package.FeedId = "artifactory"
             Octopus.Action.Package.JsonConfigurationVariablesTargets = "appsettings.json"
             Octopus.Action.Package.PackageId = "OctoPetShop.ProductService"
+            Octopus.Action.RunOnServer = "false"
         }
         worker_pool_variable = ""
 
@@ -162,5 +165,24 @@ step "deploy-octopetshop-api" {
                 SelectionMode = "immediate"
             }
         }
+    }
+}
+
+step "get-ip-address" {
+    name = "Get IP Address"
+    properties = {
+        Octopus.Action.TargetRoles = "octopetshop-web"
+    }
+
+    action {
+        action_type = "Octopus.Script"
+        properties = {
+            Octopus.Action.GitRepository.Source = "Project"
+            Octopus.Action.RunOnServer = "false"
+            Octopus.Action.Script.ScriptFileName = "scripts/get-url.ps1"
+            Octopus.Action.Script.ScriptSource = "GitRepository"
+            OctopusUseBundledTooling = "False"
+        }
+        worker_pool_variable = ""
     }
 }
