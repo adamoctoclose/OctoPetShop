@@ -1,6 +1,46 @@
 name = "OctoPetShop Template"
 description = ""
 
+parameter "Project.IIS.PortNumber" {
+    display_settings = {
+        Octopus.ControlType = "SingleLineText"
+    }
+    help_text = "Port Number for IIS"
+    label = "Port Number"
+}
+
+parameter " Project.Database.Name" {
+    display_settings = {
+        Octopus.ControlType = "SingleLineText"
+    }
+    help_text = "Name of database"
+    label = "Database Name"
+}
+
+parameter "Project.Database.Password" {
+    display_settings = {
+        Octopus.ControlType = "Sensitive"
+    }
+    help_text = "Password for database"
+    label = "Database Password"
+}
+
+parameter "Project.Database.Server.Name" {
+    display_settings = {
+        Octopus.ControlType = "SingleLineText"
+    }
+    help_text = "IP or hostname of Database"
+    label = "Database Server Name"
+}
+
+parameter "Project.Database.User" {
+    display_settings = {
+        Octopus.ControlType = "SingleLineText"
+    }
+    help_text = "User for Database"
+    label = "Database User"
+}
+
 step "approve-production-deployment" {
     name = "Approve Production Deployment"
 
