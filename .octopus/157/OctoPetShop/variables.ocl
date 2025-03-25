@@ -1,0 +1,15 @@
+variable "Project.Database.Name" {
+    value "#{Octopus.Space.Name | Replace \" \"}-#{Octopus.Project.Name | Replace \" \"}-#{Octopus.Environment.Name}   \t" {}
+}
+
+variable "AppSettings:ProductServiceBaseUrl" {
+    value "http://localhost:#{Project.IIS.PortNumber}/ProductService" {}
+}
+
+variable "AppSettings:EnvironmentName" {
+    value "#{Octopus.Environment.Name}" {}
+}
+
+variable "Project.IIS.PortNumber" {
+    value "#{Octopus.Space.Name}" {}
+}
