@@ -18,10 +18,16 @@ variable "AppSettings:ProductServiceBaseUrl" {
     value "http://localhost:#{Project.IIS.PortNumber}/ProductService" {}
 }
 
-variable "AppSettings:EnvironmentName" {
-    value "#{Octopus.Environment.Name}" {}
-}
-
 variable "Project.IIS.PortNumber" {
     value "#{Octopus.Space.Name}" {}
+}
+
+variable "ConnectionStrings:OPSConnectionString" {
+    value "server=#{Project.Database.Server.Name}; Database=#{Project.Database.Name};User Id=#{Project.Database.user};Password=#{Project.Database.Password}; Trusted_connection=true" {}
+}
+
+variable "AppSettings:EnvironmentName" {
+    value "#{Octopus.Environment.Name}" {
+        environment = ["development"]
+    }
 }
