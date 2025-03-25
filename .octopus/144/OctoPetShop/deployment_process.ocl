@@ -1,0 +1,11 @@
+step "production-approval" {
+    name = "Production Approval"
+
+    action {
+        action_type = "Octopus.Manual"
+        properties = {
+            Octopus.Action.Manual.BlockConcurrentDeployments = "False"
+            Octopus.Action.Manual.Instructions = "Approval for Production"
+        }
+    }
+}
