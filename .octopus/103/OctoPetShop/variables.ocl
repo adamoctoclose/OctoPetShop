@@ -29,7 +29,3 @@ variable "AppSettings:EnvironmentName" {
 variable "Project.IIS.PortNumber" {
     value "#{Octopus.Space.Name}" {}
 }
-
-variable "test" {
-    value "test" {}
-}
