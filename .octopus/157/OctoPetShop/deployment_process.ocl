@@ -1,0 +1,34 @@
+step "production-approval" {
+    name = "Production Approval"
+
+    action {
+        action_type = "Octopus.Manual"
+        environments = ["production"]
+        properties = {
+            Octopus.Action.Manual.BlockConcurrentDeployments = "False"
+            Octopus.Action.Manual.Instructions = "Approve tht this deployment is approved for production"
+            Octopus.Action.Manual.ResponsibleTeamIds = "global/everyone"
+        }
+    }
+}
+
+step "sql-create-database-if-not-exists" {
+    name = "SQL - Create Database If Not Exists"
+    properties = {
+        Octopus.Action.TargetRoles = "octopetshop-database"
+    }
+
+    action {
+        properties = {
+            createCommandTimeout = "30"
+            createDatabaseName = "#{Project.Database.Name}"
+            createSqlDatabaseRetryAttempts = "0"
+            createSqlLoginPasswordWhoHasRights = "#{Project.Database.Password}"
+            createSqlLoginUserWhoHasCreateUserRights = "#{Project.Database.User}"
+            createSqlServer = "Project#{Project.Database.Server.Name}"
+            Octopus.Action.RunOnServer = "false"
+            Octopus.Action.Template.Id = "ActionTemplates-32"
+            Octopus.Action.Template.Version = "5"
+        }
+    }
+}
