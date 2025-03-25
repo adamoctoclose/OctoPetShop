@@ -2,7 +2,10 @@
 $publicIp = Invoke-RestMethod -Uri http://169.254.169.254/latest/meta-data/public-ipv4
 
 # Octopus variable placeholder
-$portNumber = "#{Project.IIS.PortNumber}"
+$portNumber = '#{Project.IIS.PortNumber}'
 
-# Output in the desired format
-Write-Host "publicip:$publicIp:$portNumber"
+# Combine parts into a single string
+$output = "publicip:${publicIp}:${portNumber}"
+
+# Output the result
+Write-Highlight $output
